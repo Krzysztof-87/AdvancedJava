@@ -21,7 +21,6 @@ public class RestaurantService  {
     Scanner input = new Scanner(System.in);
 
 
-
     public RestaurantService() {
     }
 

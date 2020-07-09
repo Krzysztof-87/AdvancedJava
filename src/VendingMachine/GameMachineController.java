@@ -35,6 +35,10 @@ public class GameMachineController {
         }while (!option.equalsIgnoreCase("exit"));
     }
 
+    public void welcomeMessage(){
+        System.out.println("Hello, Welcome to our game purchase service, how we can help you today?");
+    }
+
 
     private void printMenu() {
         System.out.println("If you would like to buy a game pls push the button 'Game' ");
@@ -51,9 +55,6 @@ public class GameMachineController {
         return null;
     }
 
-    public void welcomeMessage(){
-        System.out.println("Hello, Welcome to our game purchase service, how we can help you today?");
-    }
 
     private void validateOption(GameMachine gameMachine, String option){
         if (option.equalsIgnoreCase("game")){
@@ -85,7 +86,7 @@ public class GameMachineController {
 
     public void successfulMessage(Game game){
         System.out.println("Thank you for purchase");
-        System.out.println("You bought "+game.getName()+" have fun!" );
+        System.out.println("You bought "+game.getName()+", have fun!" );
         if (moneyInput>game.getPrize()) {
             int change = moneyInput - game.getPrize();
             System.out.println("you paid " + change +" extra, take back your change");
