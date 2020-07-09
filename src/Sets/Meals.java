@@ -24,8 +24,6 @@ public class Meals {
         meals.add("Curry");
         meals.add("Kotlet");
 
-        //System.out.println(meals.get(0));
-
         for (String meal : meals) {
             System.out.print(meal.toUpperCase()+" ");
         }

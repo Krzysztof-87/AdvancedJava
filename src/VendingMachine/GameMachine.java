@@ -28,14 +28,15 @@ public class GameMachine {
             if (games.get(i).getName().equalsIgnoreCase(gameName)) {
                 if (games.get(i).getPrize() <= gamePrize) {
                     return games.get(i);
-                } else
-                    throw new GameMachineException("You didn't input enough money, take all your money back. Please try again");
+                } //else
+                   // throw new GameMachineException("You didn't input enough money, take all your money back. Please try again");
 
             }
         }
         throw new GameMachineException("Unfortunately We don't have this game, please choose other game from our wide selection");
 
     }
+
     public void deleteGameFromList(Game game){
         games.remove(game);
     }
