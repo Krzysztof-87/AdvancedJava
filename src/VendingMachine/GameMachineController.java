@@ -27,7 +27,7 @@ public class GameMachineController {
     private GameMachine gameMachine= new GameMachine();
 
 
-    public void mainLoop(){
+    public void run(){
         welcomeMessage();
         do {
             printMenu();
@@ -86,7 +86,7 @@ public class GameMachineController {
             }
             game = gameMachine.buyGame(gameNameInput, moneyInput);
     }
-    
+
 
     public void successfulMessage(Game game){
         System.out.println("Thank you for purchase");

@@ -6,6 +6,6 @@ public class GameMachineLauncher {
 
 
         GameMachineController gameMachineController= new GameMachineController();
-        gameMachineController.mainLoop();
+        gameMachineController.run();
     }
 }
