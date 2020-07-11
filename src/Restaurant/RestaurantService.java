@@ -16,8 +16,6 @@ import java.util.*;
 public class RestaurantService  {
 
     private Set<Dish> dishes = new HashSet<>();
-    private Set<Dish>dishesToSort=dishes;
-    private List<Dish> dishesList = new LinkedList<>();
     Scanner input = new Scanner(System.in);
 
 
@@ -56,35 +54,81 @@ public class RestaurantService  {
         List<Dish> dishesByDishType = new LinkedList<>();
         System.out.println("Jakiego typu dania szukasz?");
         String dishName = input.nextLine();
-        for (Dish dish : dishes) {
-            if (dish.dishType.equals(DishType.valueOf(dishName))) {
-                dishesByDishType.add(dish);
+        try {
+            for (Dish dish : dishes) {
+                if (dish.dishType.equals(DishType.valueOf(dishName))) {
+                    dishesByDishType.add(dish);
+                }
             }
+        }catch (IllegalArgumentException e){
+            System.out.println("Podany typ dania nie istnieje");
         }
         return dishesByDishType;
+
     }
 
     public void sortByNaturalOrder(){
-        dishesList.addAll(dishesToSort);
-        Collections.sort(dishesList);
-        for (Dish dish : dishesList) {
+        List<Dish>sorted=new ArrayList<>(dishes);
+        Collections.sort(sorted);
+        for (Dish dish : sorted) {
             System.out.println(dish);
         }
 
     }
 
-    public void compareByPrice(){
-        dishesList.sort(new CompareByPrize());
-        for (Dish dish : dishesList) {
-            System.out.println(dish);
+    public List<Dish> compareByPrice(SortType sortType) {
+        List<Dish> sortedByPrice = new ArrayList<>(dishes);
+        if (sortType == SortType.ASC) {
+            sortedByPrice.sort(new Comparator<Dish>() {
+                @Override
+                public int compare(Dish dish, Dish dish1) {
+                    return Double.compare(dish.getPrice(), dish1.getPrice());
+
+                }
+            });
+            return sortedByPrice;
+        } else if (sortType == SortType.DESC) {
+            sortedByPrice.sort(new Comparator<Dish>() {
+                @Override
+                public int compare(Dish dish, Dish dish1) {
+                    return -Double.compare(dish.getPrice(), dish1.getPrice());
+
+                }
+            });
+
         }
+        return sortedByPrice;
     }
-    public void compareByKcal(){
-        dishesList.sort(new CompareByKcal());
-        for (Dish dish : dishesList) {
-            System.out.println(dish);
-        }
+
+    public List<Dish> compareByKcal(){
+        List<Dish>sortedByKcal=new LinkedList<>(dishes);
+        sortedByKcal.sort(new Comparator<Dish>() {
+            @Override
+            public int compare(Dish dish, Dish dish1) {
+                return Integer.compare(dish.getKcal(), dish1.getKcal());
+
+            }
+        });
+
+        return sortedByKcal;
+
     }
+
+
+//    public List<Dish> compareByPrice(){
+//        List<Dish>sortedByPrice=new ArrayList<>(dishes);
+//        sortedByPrice.sort(new Comparator<Dish>() {
+//            @Override
+//            public int compare(Dish dish, Dish dish1) {
+//                return Double.compare(dish.getPrice(), dish1.getPrice());
+//
+//            }
+//        });
+//        return sortedByPrice;
+//
+//    }
+
+
 
 
 }

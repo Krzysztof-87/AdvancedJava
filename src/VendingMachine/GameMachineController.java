@@ -24,14 +24,15 @@ public class GameMachineController {
     private String gameNameInput;
     private int moneyInput;
     Scanner input = new Scanner(System.in);
+    private GameMachine gameMachine= new GameMachine();
 
 
-    public void mainLoop(GameMachine gameMachine){
+    public void mainLoop(){
         welcomeMessage();
         do {
             printMenu();
             option = chooseOption();
-            validateOption(gameMachine, option);
+            validateOption(option);
         }while (!option.equalsIgnoreCase("exit"));
     }
 
@@ -55,11 +56,10 @@ public class GameMachineController {
         return null;
     }
 
-
-    private void validateOption(GameMachine gameMachine, String option){
+    private void validateOption(String option){
         if (option.equalsIgnoreCase("game")){
             try{
-                getAGame(gameMachine);
+                getAGame();
                 gameMachine.deleteGameFromList(game);
                 successfulMessage(game);
                 input.nextLine();
@@ -75,25 +75,40 @@ public class GameMachineController {
 
     }
 
-    private void getAGame(GameMachine gameMachine) {
-
-            System.out.println("Please enter game title:");
-            gameNameInput = input.nextLine();
-            System.out.println("Please pay correct amount");
-            moneyInput = input.nextInt();
+    private void getAGame() {
+            try {
+                System.out.println("Please enter game title:");
+                gameNameInput = input.nextLine();
+                System.out.println("Please pay correct amount");
+                moneyInput = input.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("You entered wrong data");
+            }
             game = gameMachine.buyGame(gameNameInput, moneyInput);
     }
+    
 
     public void successfulMessage(Game game){
         System.out.println("Thank you for purchase");
         System.out.println("You bought "+game.getName()+", have fun!" );
-        if (moneyInput>game.getPrize()) {
-            int change = moneyInput - game.getPrize();
-            System.out.println("you paid " + change +" extra, take back your change");
-            System.out.println("     ");
+        if (changeToGive()) {
+            calculateChangeToGIveBack();
         }else
             System.out.println("       ");
     }
+
+
+    private boolean changeToGive(){
+        return moneyInput>game.getPrize();
+    }
+
+    private void calculateChangeToGIveBack(){
+        int change = moneyInput - game.getPrize();
+        System.out.println("you paid " + change +" extra, take back your change");
+        System.out.println("     ");
+    }
+
+
 
 
 

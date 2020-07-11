@@ -27,10 +27,10 @@ public class RestaurantLauncher {
         restaurantService.sortByNaturalOrder();
 
         System.out.println("Compare by price:");
-        restaurantService.compareByPrice();
+        System.out.println(restaurantService.compareByPrice(SortType.DESC));
 
         System.out.println("Compare by Kcal:");
-        restaurantService.compareByKcal();
+        System.out.println(restaurantService.compareByKcal());
 
 
     }
