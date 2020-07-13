@@ -14,6 +14,7 @@ GameMachineController - klasa interakcji z użytkownikiem, jest to jedyne miejsc
  */
 
 
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ public class GameMachineController {
     private String gameNameInput;
     private int moneyInput;
     Scanner input = new Scanner(System.in);
-    private GameMachine gameMachine= new GameMachine();
+    private GameMachine gameMachine = new GameMachine();
 
 
     public void run(){
@@ -82,20 +83,26 @@ public class GameMachineController {
                 System.out.println("Please pay correct amount");
                 moneyInput = input.nextInt();
             }catch (InputMismatchException e){
-                System.out.println("You entered wrong data");
+                System.err.println("You entered wrong data");
+                return;
             }
             game = gameMachine.buyGame(gameNameInput, moneyInput);
     }
 
 
-    public void successfulMessage(Game game){
-        System.out.println("Thank you for purchase");
-        System.out.println("You bought "+game.getName()+", have fun!" );
-        if (changeToGive()) {
-            calculateChangeToGIveBack();
-        }else
-            System.out.println("       ");
+    public void successfulMessage(Game game) {
+        if (game != null) {
+            System.out.println("Thank you for purchase");
+            System.out.println("You bought " + game.getName() + ", have fun!");
+            if (changeToGive()) {
+                calculateChangeToGIveBack();
+            } else
+                System.out.println("       ");
+        }
+
     }
+
+
 
 
     private boolean changeToGive(){
